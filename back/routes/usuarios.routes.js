@@ -34,7 +34,7 @@ router.get("/", authenticate, async (req, res) => {
 
 router.post("/registrar", async (req, res) => {
   const { nombre,apellido,email, password ,pic_url,rol} = req.body;
-  const hashedPassword = await bcrypt.hash(contraseña, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
   console.log("contraseña hasheada", hashedPassword);
   ModeloUsuario.createUsuario({ nombre, apellido, email,  password: hashedPassword , pic_url, rol });
   res.json({ message: "Usuario registrado" });
