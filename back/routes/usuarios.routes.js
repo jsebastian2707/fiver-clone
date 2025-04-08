@@ -8,15 +8,6 @@ const dotenv = require ("dotenv");
 dotenv.config();
 const SECRET_KEY = process.env.JWT_SECRET || "supersecreto";
 
-router.get('/', async (req, res) => {
-  try {
-    const usuarios = await ModeloUsuario.getUsuarios();
-    res.json(usuarios);
-  } catch (err) {
-    res.status(500).json({ error: 'Error al obtener usuarios' });
-  }
-});
-
 router.get("/", authenticate, async (req, res) => {
   try {
     const usuario = await ModeloUsuario.getUsuarioById(req.user.id_usuario);
