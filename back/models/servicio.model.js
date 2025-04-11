@@ -1,6 +1,6 @@
 const pool =require('../utils/db.js');
 
-const getServicio = async () => {
+const getServicios = async () => {
   const res = await pool.query('SELECT * FROM "servicio"');
   return res.rows;
 };
@@ -47,7 +47,7 @@ const deleteServicio = async (id_servicio) => {
 };
   
 module.exports = {
-  getServicio,
+  getServicios,
   getServicioById,
   getServiciosByUsuario,
   createServicio,
