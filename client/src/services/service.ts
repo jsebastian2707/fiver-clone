@@ -4,11 +4,6 @@ const getToken = () => localStorage.getItem("token")
 
 //en los servicios van todas las interacciones con la API, no se debe mezclar con la logica
 
-interface loginParams {
-  nombre: string,
-  password: string
-}
-
 export function isLoggedIn() {
   const token = getToken()
   if (!token) return false
@@ -17,12 +12,13 @@ export function isLoggedIn() {
   return exp > Date.now()
 }
 
-export const login = async ({nombre, password}:loginParams) => {
+export const login = async ({nombre, password}:{nombre: string,password: string}) => {
   const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nombre, password }),
   })
+
   const data = await res.json();
 
   if (res.ok) {
@@ -33,15 +29,14 @@ export const login = async ({nombre, password}:loginParams) => {
   }
 }
 
-export const getAvatar = async () => {
-  const token = getToken();
 
-  const res = await fetch(`${API_URL}/api/usuarios/avatar`, {
+export const getUser = async () => {
+  const token = getToken();
+  const res = await fetch(`${API_URL}/api/usuarios/user`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
   });
-
   return await res.json();
 };
 

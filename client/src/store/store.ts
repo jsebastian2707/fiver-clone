@@ -1,13 +1,23 @@
 import { create } from 'zustand';
 
-interface AuthState {
-  user: { id: string; name: string } | null;
-  login: (user: { id: string; name: string }, token: string) => void;
-  logout: () => void;
+type Usuario = {
+  id_usuario: string;
+  nombre: string;
+  apellido: string;
+  avatar: string;
+  email: string;
+  rol: string;
+  fecha_registro: string;
+};
+
+interface useStore {
+  usuario: Usuario | null;
+  setUser: (user: Usuario) => void;
+  delUser: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  login: (user) => set({ user }),
-  logout: () => set({ user: null }),
+export const useStore  = create<useStore>((set) => ({
+  usuario: null,
+  setUser: (usuario) => set({ usuario }),
+  delUser: () => set({ usuario: null }),
 }));

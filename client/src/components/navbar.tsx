@@ -2,7 +2,7 @@
 import { Link } from "react-router"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useEffect } from "react"
-import { Bell, Heart, MessageSquare, User } from "lucide-react"
+import { Bell, Heart, MessageSquare, User, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -12,9 +12,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { isLoggedIn } from "@/service/service"
+import { isLoggedIn , getUser} from "@/services/service"
+import { useStore } from "@/store/store"
 
 export function NavBar() {
+  const user = useStore((state) => state.usuario);
+  const setUser = useStore((state) => state.setUser);
+  const logout = useStore((state) => state.delUser);
+
+  const getUserInitials = () => {
+    if (!user) return "U"
+    const names = user.nombre.split(" ")
+    return names.length > 1 ? names[0][0] + names[1][0] : names[0][0]
+  }
 
   const categories = [
     "Gráficos y Diseño",
@@ -26,18 +36,17 @@ export function NavBar() {
     "Negocios",
     "Estilo de Vida",
   ]
-  
+
+  const fetchUser = async () => {
+    if (isLoggedIn()) {
+      const user = await getUser();
+      setUser(user);
+    }
+  };
 
   useEffect(() => {
-    if(isLoggedIn()){
-    //   const user = JSON.parse(localStorage.getItem("user") || "{}")
-    //   if(user){
-    //     setUser(user)
-    //   }
-     }
+    fetchUser();
   }, []);
-
-  
 
   return (
     <div className="container mx-auto flex h-16 items-center px-4">
@@ -52,7 +61,7 @@ export function NavBar() {
         ))}
       </nav>
       <div className="ml-auto flex items-center gap-2">
-        {!isLoggedIn() ? (
+        {isLoggedIn() ? (
           <>
             <Button variant="ghost" size="icon">
               <MessageSquare className="h-5 w-5" />
@@ -72,21 +81,21 @@ export function NavBar() {
                   <Avatar>
                     <AvatarImage
                       src={user?.avatar || "/placeholder.svg?height=32&width=32"}
-                      alt={user?.name || "User"}
+                      alt={user?.nombre || "User"}
                     />
                     <AvatarFallback>{getUserInitials()}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{user?.name || "My Account"}</DropdownMenuLabel>
+                <DropdownMenuLabel>{user?.nombre || "My Account"}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/dashboard" className="flex items-center w-full">
+                  <Link to="/dashboard" className="flex items-center w-full">
                     Dashboard
                   </Link>
                 </DropdownMenuItem>

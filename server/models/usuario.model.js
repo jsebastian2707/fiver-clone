@@ -11,16 +11,16 @@ const getUsuarioByName = async (nombre) => {
 };
 
 const getUsuarioById = async (id) => {
-  const res = await pool.query(`SELECT * FROM public."Usuario" WHERE id_usuario = '${id}'`);
+  const res = await pool.query(`SELECT id_usuario, nombre, apellido, email, avatar, rol, fecha_registro FROM public."Usuario" WHERE id_usuario = '${id}'`);
   return res.rows[0] || null;
 };
 
-const createUsuario = async ({ nombre, apellido, email, password, pic_url, rol }) => {
+const createUsuario = async ({ nombre, apellido, email, password, avatar, rol }) => {
   const res = await pool.query(
-    `INSERT INTO "Usuario"(nombre, apellido, email, password, pic_url, rol)
+    `INSERT INTO "Usuario"(nombre, apellido, email, password, avatar, rol)
      VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [nombre, apellido, email, password, pic_url, rol]
+    [nombre, apellido, email, password, avatar, rol]
   );
   return res.rows[0];
 };

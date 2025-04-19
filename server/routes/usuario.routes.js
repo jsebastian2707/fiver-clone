@@ -41,9 +41,12 @@ router.post("/login", async (req, res) => {
   return res.json({ token });
 });
 
-router.get("/profile", authenticate, (req, res) => {
+router.get("/validate", authenticate, (req, res) => {
   console.log("req.user", req.user); 
   res.json({ message: `Hola ${req.user.id_usuario}, esta es tu info secreta` });
 });
 
+router.get("/user", authenticate, async(req, res) => {
+  res.json(await ModeloUsuario.getUsuarioById(req.user.id_usuario));
+});
 module.exports = router;
