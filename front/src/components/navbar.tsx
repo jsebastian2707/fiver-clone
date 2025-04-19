@@ -1,7 +1,7 @@
 "use client"
 import { Link } from "react-router"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-//import { useState } from "react"
+import { useEffect } from "react"
 import { Bell, Heart, MessageSquare, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,62 +12,39 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-//import { useAuth } from "@/hooks/use-auth" // Import the auth hook
+import { isLoggedIn } from "@/service/service"
 
 export function NavBar() {
 
-  // Use the auth hook to get authentication state and functions
-  //const { user, logout } = useAuth()
-  //const isLoggedIn = !!user
-
- 
-
-  // Get user initials for avatar fallback
-  // const getUserInitials = () => {
-  //   if (!user || !user.name) return "U"
-  //   return user.name
-  //     .split(" ")
-  //     .map((part) => part[0])
-  //     .join("")
-  //     .toUpperCase()
-  //     .substring(0, 2)
-  // }
-
-
   const categories = [
-    "Graphics & Design",
-    "Digital Marketing",
-    "Writing & Translation",
-    "Video & Animation",
-    "Music & Audio",
-    "Programming & Tech",
-    "Business",
-    "Lifestyle",
+    "Gráficos y Diseño",
+    "Marketing Digital",
+    "Redacción y Traducción",
+    "Video y Animación",
+    "Música y Audio",
+    "Programación y Tecnología",
+    "Negocios",
+    "Estilo de Vida",
   ]
+  
+
+  useEffect(() => {
+    if(isLoggedIn()){
+    //   const user = JSON.parse(localStorage.getItem("user") || "{}")
+    //   if(user){
+    //     setUser(user)
+    //   }
+     }
+  }, []);
+
+  
 
   return (
     <div className="container mx-auto flex h-16 items-center px-4">
-      {/* <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <nav className="flex flex-col gap-4">
-            {categories.map((category) => (
-              <Link key={category} href="#" className="text-sm font-medium transition-colors hover:text-primary">
-                {category}
-              </Link>
-            ))}
-          </nav>
-        </SheetContent>
-      </Sheet> */}
       <Link to="/" className="mr-6 flex items-center space-x-2">
-        <span className="text-xl font-bold text-green-500">FiverClone</span>
+        <span className="text-xl font-bold text-green-500">River</span>
       </Link>
-      <nav className="hidden md:flex md:gap-6 lg:gap-10">
+      <nav className="md:flex md:gap-6 lg:gap-10">
         {categories.map((category) => (
           <Link key={category} to={`/${category}`} className="text-sm font-medium transition-colors hover:text-primary">
             {category}
@@ -75,7 +52,7 @@ export function NavBar() {
         ))}
       </nav>
       <div className="ml-auto flex items-center gap-2">
-        {isLoggedIn ? (
+        {!isLoggedIn() ? (
           <>
             <Button variant="ghost" size="icon">
               <MessageSquare className="h-5 w-5" />
@@ -126,7 +103,7 @@ export function NavBar() {
         ) : (
           <>
             <Link to="/signin">
-              <Button variant="ghost">Sign In</Button>
+              <Button variant="secondary">Sign In</Button>
             </Link>
             <Link to="/signup">
               <Button>Join</Button>

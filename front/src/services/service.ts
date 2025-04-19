@@ -2,10 +2,20 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
 const getToken = () => localStorage.getItem("token")
 
+//en los servicios van todas las interacciones con la API, no se debe mezclar con la logica
+
 interface loginParams {
   nombre: string,
   password: string
-} 
+}
+
+export function isLoggedIn() {
+  const token = getToken()
+  if (!token) return false
+  const payload = JSON.parse(atob(token.split(".")[1]))
+  const exp = payload.exp * 1000
+  return exp > Date.now()
+}
 
 export const login = async ({nombre, password}:loginParams) => {
   const res = await fetch(`${API_URL}/auth/login`, {
@@ -23,8 +33,8 @@ export const login = async ({nombre, password}:loginParams) => {
   }
 }
 
-const getAvatar = async () => {
-  const token = localStorage.getItem("token");
+export const getAvatar = async () => {
+  const token = getToken();
 
   const res = await fetch(`${API_URL}/api/usuarios/avatar`, {
     headers: {
