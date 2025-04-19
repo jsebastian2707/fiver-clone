@@ -3,10 +3,8 @@ const ModeloServicio = require("../models/servicio.model.js");
 const router = Router();
 const authenticate = require("../utils/authenticate.js");
 
-
-// Listar servicios (GET)
 //obtener todos los servicios de un usuario ,
-router.get("/", authenticate, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const servicios = await ModeloServicio.getServicios();
     res.json(servicios);
