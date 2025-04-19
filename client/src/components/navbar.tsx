@@ -16,9 +16,9 @@ import { isLoggedIn , getUser} from "@/services/service"
 import { useStore } from "@/store/store"
 
 export function NavBar() {
-  const user = useStore((state) => state.usuario);
+  const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
-  const logout = useStore((state) => state.delUser);
+  const delUser = useStore((state) => state.delUser);
 
   const getUserInitials = () => {
     if (!user) return "U"
@@ -102,7 +102,7 @@ export function NavBar() {
                 <DropdownMenuItem>Orders</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => logout()}>
+                <DropdownMenuItem onClick={() => delUser()}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
                 </DropdownMenuItem>

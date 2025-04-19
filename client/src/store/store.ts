@@ -11,13 +11,13 @@ type Usuario = {
 };
 
 interface useStore {
-  usuario: Usuario | null;
+  user: Usuario | null;
   setUser: (user: Usuario) => void;
   delUser: () => void;
 }
 
 export const useStore  = create<useStore>((set) => ({
-  usuario: null,
-  setUser: (usuario) => set({ usuario }),
-  delUser: () => set({ usuario: null }),
+  user: null,
+  setUser: (user) => set({ user }),
+  delUser: () => set({ user: null }),
 }));
