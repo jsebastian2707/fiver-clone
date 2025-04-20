@@ -1,4 +1,16 @@
+import { useEffect } from "react"
+import { useStore } from "@/store/store"
+import { getServices } from "@/services/service"
 export function HomePage() {
+  const servicios = useStore((state) => state.servicios);
+  const setServicios = useStore((state) => state.setServicios);
+  const fetchServices = async () => {
+    const user = await getServices();
+    setServicios(user);
+  };
+  useEffect(() => {
+    fetchServices();
+  }, []);
   return (
     <>
       <div className="relative h-140 overflow-hidden mb-6 flex flex-col justify-end px-16">
@@ -26,6 +38,14 @@ export function HomePage() {
                 Service Title {index + 1}
               </h2>
               <p className="text-gray-600">Service description goes here.</p>
+            </div>
+          ))}
+          {servicios?.map((servicio) => (
+            <div key={servicio.id_servicio} className="bg-white shadow-md rounded-lg p-4">
+              <h2 className="text-xl font-semibold">
+                {servicio.nombre}
+              </h2>
+              <p className="text-gray-600">{servicio.descripcion}</p>
             </div>
           ))}
         </div>

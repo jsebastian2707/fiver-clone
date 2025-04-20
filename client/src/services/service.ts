@@ -40,6 +40,11 @@ export const getUser = async () => {
   return await res.json();
 };
 
+export const getServices = async () => {
+  const res = await fetch(`${API_URL}/api/servicios/`);
+  return await res.json();
+};
+
 // export const getPerfil = async () => {
 //   const res = await fetch(`${API_URL}/usuarios/perfil`, {
 //     headers: {

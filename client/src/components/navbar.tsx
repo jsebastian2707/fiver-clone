@@ -111,11 +111,11 @@ export function NavBar() {
           </>
         ) : (
           <>
-            <Link to="/signin">
-              <Button variant="secondary">Sign In</Button>
+            <Link to="/login">
+              <Button variant="secondary">Entrar</Button>
             </Link>
-            <Link to="/signup">
-              <Button>Join</Button>
+            <Link to="/register">
+              <Button>Registrarse</Button>
             </Link>
           </>
         )}
