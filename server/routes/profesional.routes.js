@@ -29,9 +29,8 @@ router.get('/:id', authenticate, async (req, res) => {
 // Crear un nuevo profesional
 router.post('/', async (req, res) => {
   try {
-    const nuevoProfesional = new Profesional(req.body);
-    const profesionalGuardado = await nuevoProfesional.save();
-    res.status(201).json(profesionalGuardado);
+    const profesional = await ModeloProfesional.createProfesional(req.body);
+    res.json(profesional);
   } catch (error) {
     res.status(400).json({ message: 'Error al crear el profesional', error });
   }
