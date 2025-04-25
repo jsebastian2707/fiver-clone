@@ -1,4 +1,3 @@
-"use client"
 import { Link } from "react-router"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useEffect } from "react"
@@ -12,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { isLoggedIn , getUser} from "@/services/service"
+import { isLoggedIn , getUser ,logout} from "@/services/service"
 import { useStore } from "@/store/store"
 
 export function NavBar() {
@@ -26,16 +25,16 @@ export function NavBar() {
     return names.length > 1 ? names[0][0] + names[1][0] : names[0][0]
   }
 
-  const categories = [
-    "Gráficos y Diseño",
-    "Marketing Digital",
-    "Redacción y Traducción",
-    "Video y Animación",
-    "Música y Audio",
-    "Programación y Tecnología",
-    "Negocios",
-    "Estilo de Vida",
-  ]
+  // const categories = [
+  //   "Gráficos y Diseño",
+  //   "Marketing Digital",
+  //   "Redacción y Traducción",
+  //   "Video y Animación",
+  //   "Música y Audio",
+  //   "Programación y Tecnología",
+  //   "Negocios",
+  //   "Estilo de Vida",
+  // ]
 
   const fetchUser = async () => {
     if (isLoggedIn()) {
@@ -53,15 +52,15 @@ export function NavBar() {
       <Link to="/" className="mr-6 flex items-center space-x-2">
         <span className="text-xl font-bold text-green-500">River</span>
       </Link>
-      <nav className="md:flex md:gap-6 lg:gap-10">
-        {categories.map((category) => (
-          <Link key={category} to={`/${category}`} className="text-sm font-medium transition-colors hover:text-primary">
-            {category}
-          </Link>
-        ))}
-      </nav>
+        {/* <nav className="md:flex md:gap-6 lg:gap-10">
+          {categories.map((category) => (
+            <Link key={category} to={`/${category}`} className="text-sm font-medium transition-colors hover:text-primary">
+              {category}
+            </Link>
+          ))}
+        </nav> */}
       <div className="ml-auto flex items-center gap-2">
-        {isLoggedIn() ? (
+        {user ? (
           <>
             <Button variant="ghost" size="icon">
               <MessageSquare className="h-5 w-5" />
@@ -102,7 +101,7 @@ export function NavBar() {
                 <DropdownMenuItem>Orders</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => delUser()}>
+                <DropdownMenuItem onClick={() => {logout();delUser()}}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
                 </DropdownMenuItem>

@@ -13,7 +13,7 @@ export function isLoggedIn() {
 }
 
 export const login = async ({nombre, password}:{nombre: string,password: string}) => {
-  const res = await fetch(`${API_URL}/servicios/login`, {
+  const res = await fetch(`${API_URL}/api/usuarios/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nombre, password }),
@@ -23,12 +23,11 @@ export const login = async ({nombre, password}:{nombre: string,password: string}
 
   if (res.ok) {
     localStorage.setItem("token", data.token);
-    return await res.json()
+    return data;
   } else {
     throw new Error(data.message);
   }
 }
-
 
 export const getUser = async () => {
   const token = getToken();
@@ -43,6 +42,10 @@ export const getUser = async () => {
 export const getServices = async () => {
   const res = await fetch(`${API_URL}/api/servicios/`);
   return await res.json();
+};
+
+export const logout = () => {
+  localStorage.removeItem("token"); // Remove the token from local storage
 };
 
 // export const getPerfil = async () => {
