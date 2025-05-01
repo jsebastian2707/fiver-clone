@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "server": "cd server && node index.js",
-    "client": "cd client && npm run dev"
+    "client": "cd client && npm run dev",
+    "serveru": "cd server && npm i",
+    "clientu": "cd client && npm i"
   }
 }
