@@ -1,7 +1,7 @@
 const pool =require('../utils/db.js');
 
 const getReclamo = async () => {
-  const res = await pool.query('SELECT * FROM "reclamo"');
+  const res = await pool.query('SELECT * FROM "reclamaciones"');
   return res.rows;
 };
 
