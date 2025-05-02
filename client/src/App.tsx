@@ -3,7 +3,9 @@ import { HomePage } from './components/homepage';
 import { NavBar } from "./components/navbar"
 import RegisterPage  from './components/register';
 import LoginPage from './components/login';
+import ProfilePage from './components/profile';
 import { Toaster } from "@/components/ui/sonner";
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/profile" element={<ProfilePage />} />
         {/* <Route path="/services" element={<ServiceList />} />
         <Route path="/create-service" element={<CreateServiceForm />} />
         <Route path="/profile" element={<ProfilePage />} />*/}
