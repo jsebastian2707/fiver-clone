@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { useStore } from "@/store/store"
+import { useNavigate } from "react-router";
 
 const loginSchema = z.object({
   nombre: z.string().min(1).max(10),
@@ -22,10 +23,15 @@ const loginSchema = z.object({
 })
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   //const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
   const form = useForm<z.infer<typeof loginSchema >>({
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      nombre: "",
+      password: ""
+    }
   });
 
   
@@ -35,11 +41,12 @@ export default function LoginPage() {
         const user = await getUser();
         setUser(user);
       }).then(() => {
-        toast.success("Login successful!");
+        navigate("/");
+        toast.success("ingreso exitoso!");
       });
     } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      console.error("Form submission error :", error);
+      toast.error(''+error);
     }
   }
 
@@ -48,7 +55,7 @@ export default function LoginPage() {
       <CardHeader>
         <CardTitle className="text-2xl">{"Entrar"}</CardTitle>
         <CardDescription>
-          "Enter your name below to login to your account"
+          "Ingresa tu nombre a continuación para iniciar sesión en tu cuenta"
         </CardDescription>
       </CardHeader>
       <CardContent>
