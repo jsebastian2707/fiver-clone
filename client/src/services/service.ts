@@ -29,6 +29,20 @@ export const login = async ({nombre, password}:{nombre: string,password: string}
   }
 }
 
+export const register = async ({nombre,apellido,email,password,avatar,rol}:{nombre: string,apellido: string,email: string, password: string, avatar: string,rol: string}) => {
+  const res = await fetch(`${API_URL}/api/usuarios/registrar`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({nombre,apellido,email,password,avatar,rol}),
+  })
+  const data = await res.json();
+  if (res.ok) {
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
+}
+
 export const getUser = async () => {
   const token = getToken();
   const res = await fetch(`${API_URL}/api/usuarios/user`, {

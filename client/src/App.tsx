@@ -1,17 +1,19 @@
 import { Routes, Route } from 'react-router';
 import { HomePage } from './components/homepage';
 import { NavBar } from "./components/navbar"
-import  AuthPage  from './components/auth';
+import RegisterPage  from './components/register';
 import LoginPage from './components/login';
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" richColors /> 
       <NavBar/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage/>} />
-        <Route path="/register" element={<AuthPage/>} />
+        <Route path="/register" element={<RegisterPage/>} />
         {/* <Route path="/services" element={<ServiceList />} />
         <Route path="/create-service" element={<CreateServiceForm />} />
         <Route path="/profile" element={<ProfilePage />} />*/}

@@ -24,10 +24,10 @@ router.get("/", authenticate, async (req, res) => {
 });
 
 router.post("/registrar", async (req, res) => {
-  const { nombre,apellido,email, password ,pic_url,rol} = req.body;
+  const { nombre,apellido,email, password ,avatar,rol} = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log("contraseña hasheada", hashedPassword);
-  ModeloUsuario.createUsuario({ nombre, apellido, email,  password: hashedPassword , pic_url, rol });
+  ModeloUsuario.createUsuario({ nombre, apellido, email,  password: hashedPassword , avatar, rol });
   res.json({ message: "Usuario registrado" });
 });
 

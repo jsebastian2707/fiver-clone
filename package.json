@@ -5,6 +5,7 @@
     "server": "cd server && node index.js",
     "client": "cd client && npm run dev",
     "serveru": "cd server && npm i",
-    "clientu": "cd client && npm i"
+    "clientu": "cd client && npm i",
+    "update": "npm run serveru && npm run clientu"
   }
 }
