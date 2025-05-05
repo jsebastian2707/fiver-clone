@@ -1,27 +1,27 @@
 const pool = require('../utils/db.js');
 
 // id_profesinal  es el mismo id_usuario estas relacianadas 1 a 1
-const getProfesionales = async () => {
+const gets = async () => {
   const res = await pool.query('SELECT * FROM profesional');
   return res.rows;
 };
 
-const getProfesionalById = async (id) => {
+const getById = async (id) => {
   const res = await pool.query(`SELECT * FROM profesional WHERE id_profesional = '${id}'`);
   return res.rows[0] || null;
 };
 
-const createProfesional = async ({ descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
+const create = async ({id_profesional, descripcion, experencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
   const res = await pool.query(
-    `INSERT INTO profesional (descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium)
-     VALUES ($1, $2, $3, $4, $5)
+    `INSERT INTO profesional (id_profesional, descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium)
+     VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium]
+    [id_profesional, descripcion, experencia, habilidades, calificacion_promedio, suscripcion_premium]
   );
   return res.rows[0];
 };
 
-const updateProfesional = async ({ id_profesional, descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
+const update = async (id_profesional,{descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
   const res = await pool.query(
     `UPDATE profesional
      SET descripcion = $1,
@@ -36,7 +36,7 @@ const updateProfesional = async ({ id_profesional, descripcion, experiencia, hab
   return res.rows[0];
 };
 
-const deleteProfesional = async (id_profesional) => {
+const remove = async (id_profesional) => {
   const res = await pool.query(
     `DELETE FROM profesional
      WHERE id_profesional = $1
@@ -47,9 +47,9 @@ const deleteProfesional = async (id_profesional) => {
 };
 
 module.exports = {
-  getProfesionales,
-  getProfesionalById,
-  createProfesional,
-  updateProfesional,
-  deleteProfesional,
+  gets,
+  getById,
+  create,
+  update,
+  remove
 };

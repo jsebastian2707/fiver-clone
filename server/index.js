@@ -1,17 +1,23 @@
 const express = require("express");
 const cors = require('cors');
+const apiRouter = express.Router();
 // 🚓 routes
 const usuarioRoutes = require ("./routes/usuario.routes.js");
+const profesionalRoutes = require ("./routes/profesional.routes.js");
 const servicioRoutes = require ("./routes/servicio.routes.js");
 const reseñaRoutes = require ("./routes/reseña.routes.js");
 const pedidoRoutes = require ("./routes/pedido.routes.js");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/api/usuarios', usuarioRoutes);
-app.use('/api/servicios', servicioRoutes);
-app.use('/api/reseña', reseñaRoutes);
-app.use('/api/pedido', pedidoRoutes);
+
+apiRouter.use('/usuarios', usuarioRoutes);
+apiRouter.use('/profesional', profesionalRoutes);
+apiRouter.use('/servicios', servicioRoutes);
+apiRouter.use('/reseña', reseñaRoutes);
+apiRouter.use('/pedido', pedidoRoutes);
+
+app.use('/api', apiRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {

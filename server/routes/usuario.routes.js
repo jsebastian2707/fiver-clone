@@ -49,4 +49,5 @@ router.get("/validate", authenticate, (req, res) => {
 router.get("/user", authenticate, async(req, res) => {
   res.json(await ModeloUsuario.getUsuarioById(req.user.id_usuario));
 });
+
 module.exports = router;

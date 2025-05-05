@@ -47,9 +47,9 @@ const deleteServicio = async (id_servicio) => {
 };
   
 module.exports = {
-  getServicios,
-  getServicioById,
-  getServiciosByUsuario,
+  getReseña,
+  getReseñaByIdPedido,
+  getReseñaByIdCliente,
   createServicio,
   updateServicio,
   deleteServicio,
