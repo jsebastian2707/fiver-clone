@@ -29,6 +29,23 @@ export const login = async ({nombre, password}:{nombre: string,password: string}
   }
 }
 
+export const getProfesional = async (idUsuario: string) => {
+  const res = await fetch(`${API_URL}/api/usuarios/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(idUsuario),
+  })
+
+  const data = await res.json();
+
+  if (res.ok) {
+    localStorage.setItem("token", data.token);
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
+}
+
 export const register = async ({nombre,apellido,email,password,avatar,rol}:{nombre: string,apellido: string,email: string, password: string, avatar: string,rol: string}) => {
   const res = await fetch(`${API_URL}/api/usuarios/registrar`, {
     method: "POST",
@@ -61,6 +78,22 @@ export const getServices = async () => {
 export const logout = () => {
   localStorage.removeItem("token"); // Remove the token from local storage
 };
+
+
+
+export const createProfesional = async ({id_profesional,descripcion,experiencia,habilidades,calificacion_promedio,suscripcion_premium}:{id_profesional: string ,descripcion: string ,experiencia: number,habilidades: string ,calificacion_promedio:DoubleRange,suscripcion_premium:boolean}) => {
+  const res = await fetch(`${API_URL}/api/usuarios/registrar`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id_profesional,descripcion,experiencia,habilidades,calificacion_promedio,suscripcion_premium}),
+  })
+  const data = await res.json();
+  if (res.ok) {
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
+}
 
 // export const getPerfil = async () => {
 //   const res = await fetch(`${API_URL}/usuarios/perfil`, {

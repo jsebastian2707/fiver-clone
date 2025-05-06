@@ -24,7 +24,8 @@ const ProfilePage = (): JSX.Element => {
         </div>
       </CardHeader>
       <CardContent>
-        <Button className="w-full">Edit Profile</Button>
+        <Button className="w-full mb-3">Convertirse en Profesional</Button>
+        <Button className="w-full">Editar perfil</Button>
       </CardContent>
     </Card>
   );
