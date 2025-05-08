@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
+import { Link } from "react-router"
+
 
 const ProfilePage = (): JSX.Element => {
   const user = useStore((state) => state.user);
@@ -24,8 +26,10 @@ const ProfilePage = (): JSX.Element => {
         </div>
       </CardHeader>
       <CardContent>
+      <Link to="/becomeseller">
         <Button className="w-full mb-3">Convertirse en Profesional</Button>
-        <Button className="w-full">Editar perfil</Button>
+      </Link>
+      <Button className="w-full">Editar perfil</Button>
       </CardContent>
     </Card>
   );
