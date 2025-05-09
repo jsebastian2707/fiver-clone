@@ -5,6 +5,8 @@ import RegisterPage  from './components/register';
 import LoginPage from './components/login';
 import ProfilePage from './components/profile';
 import BecomeSellerPage from './components/becomeSeller';
+import ServiciePage from './components/service';
+import CreateServicePage from './components/createService';
 import { Toaster } from "@/components/ui/sonner";
 
 
@@ -19,6 +21,9 @@ function App() {
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/becomeSeller" element={<BecomeSellerPage />}/>
+        <Route path="/createService/" element={<CreateServicePage/>}/>
+        <Route path="/service/:id" element={<ServiciePage/>}/>
+
         {/* <Route path="/services" element={<ServiceList />} />
         <Route path="/create-service" element={<CreateServiceForm />} />
         <Route path="/profile" element={<ProfilePage />} />*/}

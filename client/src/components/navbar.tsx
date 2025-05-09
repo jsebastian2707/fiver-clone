@@ -1,7 +1,8 @@
 import { Link } from "react-router"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useEffect } from "react"
-import { Bell, Heart, MessageSquare, User, LogOut } from "lucide-react"
+import { Bell, Heart, MessageSquare, User, LogOut,SquarePlus } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -18,6 +19,7 @@ export function NavBar() {
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
   const delUser = useStore((state) => state.delUser);
+  const profesional =  useStore((state) => state.profesional);
   const setProfesional =  useStore((state) => state.setProfesional);
 
   const getUserInitials = () => {
@@ -98,6 +100,12 @@ export function NavBar() {
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
+                {profesional && <DropdownMenuItem>
+                  <SquarePlus className="mr-2 h-4 w-4" />
+                  <Link to="/createService">
+                    <span>crear servicio</span>
+                  </Link>
+                </DropdownMenuItem>}
                 <DropdownMenuItem>
                   <Link to="/dashboard" className="flex items-center w-full">
                     Dashboard

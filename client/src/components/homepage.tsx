@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/store";
 import { getServices } from "@/services/service";
+import { Link } from "react-router";
 
 export function HomePage() {
   const user = useStore((state) => state.user);
@@ -53,26 +54,23 @@ export function HomePage() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {serviciosFiltrados?.map((servicio) => (
-              <div
-                key={servicio.id_servicio}
-                className={`rounded-lg p-4 border hover:shadow-lg transition ${
-                  servicio.destacado
-                    ? "bg-green-100 border-green-400"
-                    : "bg-white shadow-md"
-                }`}
-              >
-                <h2 className="text-xl font-semibold mb-2">
-                  {servicio.titulo}
-                </h2>
-                <p className="text-gray-600 mb-2">{servicio.descripcion}</p>
-                <p className="text-sm text-gray-800">
-                  <strong>Precio:</strong> ${servicio.precio}
-                </p>
-                <p className="text-sm text-gray-800">
-                  <strong>Tiempo de entrega:</strong> {servicio.tiempo_entrega}{" "}
-                  días
-                </p>
-              </div>
+              <Link to={`/service/${servicio.id_servicio}`} key={servicio.id_servicio} className={`rounded-lg p-4 border hover:shadow-lg transition ${
+                    servicio.destacado
+                      ? "bg-green-100 border-green-400"
+                      : "bg-white shadow-md"
+                  }`}>
+                  <h2 className="text-xl font-semibold mb-2">
+                    {servicio.titulo}
+                  </h2>
+                  <p className="text-gray-600 mb-2">{servicio.descripcion}</p>
+                  <p className="text-sm text-gray-800">
+                    <strong>Precio:</strong> ${servicio.precio}
+                  </p>
+                  <p className="text-sm text-gray-800">
+                    <strong>Tiempo de entrega:</strong> {servicio.tiempo_entrega}{" "}
+                    días
+                  </p>
+              </Link>
             ))}
           </div>
         </div>
