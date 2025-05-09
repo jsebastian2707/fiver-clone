@@ -3,24 +3,31 @@ const ModeloServicio = require("../models/servicio.model.js");
 const router = Router();
 const authenticate = require("../utils/authenticate.js");
 
-//obtener todos los servicios de un usuario ,
+
 router.get("/", async (req, res) => {
   try {
     const servicios = await ModeloServicio.getServicios();
-    res.json(servicios);
+    const serviciosFiltrados = servicios
+      .filter((s) => s.estado === "activo")
+      .sort((a, b) => (b.destacado === a.destacado ? 0 : b.destacado ? 1 : -1))
+      .map(({ estado, ...rest }) => rest);
+    res.json(serviciosFiltrados);
   } catch (err) {
     console.error("Error al obtener servicios:", err);
     res.status(500).json({ error: "Error al obtener servicios" });
   }
 });
 
-router.get("/id", authenticate, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const servicios = await ModeloServicio.getServiciosByUsuario(req.user.id_usuario);
-    res.json(servicios);
+    const servicio = await ModeloServicio.getServicioById(req.params.id); // Esta función debe existir
+    if (!servicio) {
+      return res.status(404).json({ error: "Servicio no encontrado" });
+    }
+    res.json(servicio);
   } catch (err) {
-    console.error("Error al obtener servicios:", err);
-    res.status(500).json({ error: "Error al obtener servicios" });
+    console.error("Error al obtener servicio:", err);
+    res.status(500).json({ error: "Error al obtener servicio" });
   }
 });
 
@@ -35,6 +42,7 @@ router.post("/", authenticate, async (req, res) => {
     res.status(500).json({ error: "Error al crear servicio" });
   }
 });
+
 // Editar servicio (PUT)
 router.put("/:id", authenticate, async (req, res) => {
   try {
