@@ -11,13 +11,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { isLoggedIn , getUser ,logout} from "@/services/service"
+import { isLoggedIn , getUser ,logout, getProfesional} from "@/services/service"
 import { useStore } from "@/store/store"
 
 export function NavBar() {
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
   const delUser = useStore((state) => state.delUser);
+  const setProfesional =  useStore((state) => state.setProfesional);
 
   const getUserInitials = () => {
     if (!user) return "U"
@@ -40,6 +41,8 @@ export function NavBar() {
     if (isLoggedIn()) {
       const user = await getUser();
       setUser(user);
+      const profesional = await getProfesional(user.id_usuario);
+      setProfesional(profesional)
     }
   };
 

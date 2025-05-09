@@ -11,18 +11,23 @@ type Usuario = {
 };
 
 type Profesional = {
-  id_profesional: string;
-  descripcion: string;
-  experiencia: string;
-  habilidades: string;
-  calificacion_promedio: string;
-  suscripcion_premium: string;
+  id_profesional: string,
+  descripcion: string,
+  experiencia: string,
+  habilidades: string,
+  calificacion_promedio: string,
+  suscripcion_premium: boolean,
 };
 
 type Servicio = {
   id_servicio: string;
-  nombre: string;
+  id_profesional: number;
+  titulo: string;
   descripcion: string;
+  precio: number,
+  tiempo_entrega: number,
+  estado: string,
+  destacado: boolean
 }
 
 interface useStore {

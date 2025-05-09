@@ -11,12 +11,12 @@ const getById = async (id) => {
   return res.rows[0] || null;
 };
 
-const create = async ({id_profesional, descripcion, experencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
+const create = async ({id_profesional, descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium }) => {
   const res = await pool.query(
     `INSERT INTO profesional (id_profesional, descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium)
      VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [id_profesional, descripcion, experencia, habilidades, calificacion_promedio, suscripcion_premium]
+    [id_profesional, descripcion, experiencia, habilidades, calificacion_promedio, suscripcion_premium]
   );
   return res.rows[0];
 };

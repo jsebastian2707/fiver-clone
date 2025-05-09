@@ -8,6 +8,7 @@ import { Link } from "react-router"
 
 const ProfilePage = (): JSX.Element => {
   const user = useStore((state) => state.user);
+  const profesional = useStore((state) => state.profesional);
   return (
     <Card className="max-w-md mx-auto">
       <CardHeader>
@@ -23,12 +24,24 @@ const ProfilePage = (): JSX.Element => {
           </CardTitle>
           <p className="text-sm text-muted-foreground">{user?.email}</p>
           <p className="text-sm text-muted-foreground">{user?.rol}</p>
+          {profesional && 
+            <>
+              <p className="text-sm text-muted-foreground"> {profesional.descripcion}</p>
+              <p className="text-sm text-muted-foreground"> {profesional.experiencia} años de experiencia</p>
+              <p className="text-sm text-muted-foreground"><strong>Habilidades:</strong></p>
+              <p className="text-sm text-muted-foreground">{profesional.habilidades}</p>
+              <p className="text-sm text-muted-foreground"><strong>promedio:</strong> {profesional.calificacion_promedio}</p>
+              <p className="text-sm text-muted-foreground">{profesional.suscripcion_premium? "suscripcion activa" : "sin suscripcion"}</p>
+            </>
+          }
         </div>
       </CardHeader>
       <CardContent>
-      <Link to="/becomeseller">
-        <Button className="w-full mb-3">Convertirse en Profesional</Button>
-      </Link>
+      {!profesional &&
+        <Link to="/becomeseller">
+          <Button className="w-full mb-3">Convertirse en Profesional</Button>
+        </Link>
+      }
       <Button className="w-full">Editar perfil</Button>
       </CardContent>
     </Card>
